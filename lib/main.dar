@@ -1,37 +1,42 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
 
+// ایپ کا مرکزی فنکشن جہاں سے عمل شروع ہوتا ہے۔
 void main() {
   runApp(const MyApp());
 }
 
+// یہ ایک StatelessWidget ہے جو پوری ایپ کی ظاہری شکل کو کنٹرول کرتی ہے۔
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      // ڈیبگ بینر (Debug Banner) کو چھپاتا ہے۔
+      debugShowCheckedModeBanner: false, 
+      title: 'میری فلٹر ایپ',
       theme: ThemeData(
-        // یہاں آپ اپنی ایپ کا تھیم سیٹ کر سکتے ہیں۔
-        primarySwatch: Colors.blue,
+        // یہاں آپ ایپ کا بنیادی رنگ سیٹ کر سکتے ہیں۔
+        primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'میری پہلی فلٹر ایپ'),
+      home: const HomeScreen(), // ایپ کا پہلا صفحہ
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+// یہ اسٹیٹ فل ویجیٹ (StatefulWidget) ہے کیونکہ اس کا مواد تبدیل ہوگا۔
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
 
+  // یہ فنکشن کاؤنٹر کی ویلیو بڑھاتا ہے اور اسکرین کو اپ ڈیٹ کرتا ہے۔
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -42,7 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('کاؤنٹر ایپ'),
+        backgroundColor: Colors.teal,
       ),
       body: Center(
         child: Column(
@@ -50,10 +56,14 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'آپ نے بٹن کو اتنی بار دبایا ہے:',
+              style: TextStyle(fontSize: 18),
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                color: Colors.teal,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -61,7 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'شمار بڑھائیں',
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.teal,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
