@@ -1,0 +1,2 @@
+# IslamicDigitalWall
+Skeleton Android project.
