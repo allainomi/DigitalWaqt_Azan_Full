@@ -21,15 +21,11 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-        working-directory: ./app
-
-      - name: Enable Flutter web (optional)
-        run: flutter config --enable-web
-        working-directory: ./app
+        working-directory: ./app   # <-- correct folder
 
       - name: Build APK
         run: flutter build apk --release
-        working-directory: ./app
+        working-directory: ./app   # <-- correct folder
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
