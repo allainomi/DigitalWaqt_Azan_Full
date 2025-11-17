@@ -1,4 +1,4 @@
-name:name: Android APK Build
+name: Android APK Build
 
 on:
   push:
@@ -33,4 +33,3 @@ jobs:
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
- CI
