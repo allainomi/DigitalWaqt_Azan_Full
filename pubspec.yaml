@@ -1,11 +1,11 @@
 name: digital_waqt_azan
 description: A complete Digital Waqt Azan Flutter App
-publish_to: 'none' # Package not published
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -13,7 +13,7 @@ dependencies:
 
   cupertino_icons: ^1.0.5
   flutter_local_notifications: ^13.0.0
-  audioplayers: ^2.2.0
+  audioplayers: ^6.5.1   # <-- Updated version
   timezone: ^0.9.0
   intl: ^0.18.1
 
