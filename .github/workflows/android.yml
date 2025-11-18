@@ -1,33 +1,34 @@
-name: Build APK
+name: Flutter Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
+    # بہترین مطابقت کے لیے ubuntu-latest استعمال کریں
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: DigitalWaqt_Azan_Full
+
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable   # correct way to set stable version
-          cache: true       # optional: speeds up subsequent runs
+    # Flutter ماحول کو سیٹ اپ کریں
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.19.x' # یہاں اپنے Flutter ورژن کو سیٹ کریں
 
-      - name: Install dependencies
-        run: flutter pub get
+    - name: Run flutter pub get
+      run: flutter pub get
+      # WORKING DIRECTORY کو پراجیکٹ کے اندرونی روٹ تک ایڈجسٹ کریں
+      working-directory: ./DigitalWaqt_Azan_Full
+      # 💥 فکس یہاں ہے: شیل کو /bin/sh پر سیٹ کریں
+      shell: /bin/sh -c "{0}" 
 
-      - name: Build APK
-        run: flutter build apk --release
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release.apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+    - name: Run Flutter build (Example)
+      run: flutter build apk --release
+      working-directory: ./DigitalWaqt_Azan_Full
+      shell: /bin/sh -c "{0}"
+      
+    # ... (باقی بلڈ اور اپ لوڈ کے مراحل)
