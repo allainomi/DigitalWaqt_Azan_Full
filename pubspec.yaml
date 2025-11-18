@@ -1,30 +1,11 @@
-name: digital_waqt_azan
-description: A complete Digital Waqt Azan Flutter App
-publish_to: 'none'
+# --- Dependencies مرحلہ ---
+- name: Get Dependencies (flutter pub get)
+  # working-directory: ./DigitalWaqt_Azan_Full # ❌ یہ لائن ہٹا دیں
+  run: flutter pub get
+  shell: /bin/sh -c "{0}" 
 
-version: 1.0.0+1
-
-environment:
-  sdk: ">=3.0.0 <4.0.0"
-
-dependencies:
-  flutter:
-    sdk: flutter
-
-  cupertino_icons: ^1.0.5
-  flutter_local_notifications: ^13.0.0
-  audioplayers: ^6.5.1   # <-- Updated version
-  timezone: ^0.9.0
-  intl: ^0.18.1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
-
-flutter:
-  uses-material-design: true
-
-  assets:
-    - assets/sounds/azan_manual.mp3
-    - assets/images/
+# --- Build مرحلہ ---
+- name: Build Android APK
+  # working-directory: ./DigitalWaqt_Azan_Full # ❌ یہ لائن ہٹا دیں
+  run: flutter build apk --release
+  shell: /bin/sh -c "{0}"
