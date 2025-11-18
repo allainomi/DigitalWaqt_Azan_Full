@@ -1,15 +1,45 @@
-# ... (پچھلے steps)
+name: Flutter Build and Deploy
 
-- name: Run flutter pub get
-  run: flutter pub get
-  # ⬇️ یہ لائن ورکنگ ڈائریکٹری کو درست کرتی ہے
-  working-directory: ./DigitalWaqt_Azan_Full 
-  shell: /bin/sh -c "{0}" 
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-- name: Run Flutter build (Example)
-  run: flutter build apk --release
-  # ⬇️ یہ لائن ورکنگ ڈائریکٹری کو درست کرتی ہے
-  working-directory: ./DigitalWaqt_Azan_Full
-  shell: /bin/sh -c "{0}"
-  
-# ... (اگلے steps)
+jobs:
+  build:
+    # عام طور پر استعمال ہونے والے Ubuntu رنر کا استعمال کریں
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # Flutter کو سیٹ اپ کریں
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        # اپنے پراجیکٹ کے مطلوبہ ورژن کو ایڈجسٹ کریں
+        flutter-version: '3.19.x' 
+        channel: 'stable'
+
+    - name: Get Dependencies (flutter pub get)
+      # Working Directory کو صرف پراجیکٹ کے سب فولڈر پر سیٹ کریں تاکہ ایرر دور ہو
+      working-directory: ./DigitalWaqt_Azan_Full
+      run: flutter pub get
+      # پچھلی /bin/sh والی ایرر کو یقینی بنانے کے لیے شیل کو واضح طور پر سیٹ کریں
+      shell: /bin/sh -c "{0}" 
+
+    - name: Build Android APK
+      # Working Directory کو دوبارہ درست کریں
+      working-directory: ./DigitalWaqt_Azan_Full
+      run: flutter build apk --release
+      shell: /bin/sh -c "{0}" 
+
+    # آپ یہاں APK کو آرٹیفیکٹ کے طور پر اپ لوڈ کرنے کے مراحل شامل کر سکتے ہیں
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-apk
+        path: ./DigitalWaqt_Azan_Full/build/app/outputs/flutter-apk/app-release.apk
